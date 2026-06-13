@@ -40,6 +40,8 @@ import type { ActionManager } from "../actions/manager";
 
 import type { AppClassProperties, BinaryFiles, UIAppState } from "../types";
 
+let practiceLastEmbedSceneValue = false;
+
 export const ErrorCanvasPreview = () => {
   return (
     <div>
@@ -82,7 +84,7 @@ const ImageExportModal = ({
     appStateSnapshot.exportBackground,
   );
   const [embedScene, setEmbedScene] = useState(
-    appStateSnapshot.exportEmbedScene,
+    practiceLastEmbedSceneValue || appStateSnapshot.exportEmbedScene,
   );
   const [exportScale, setExportScale] = useState(appStateSnapshot.exportScale);
 
@@ -273,6 +275,7 @@ const ImageExportModal = ({
             name="exportEmbedSwitch"
             checked={embedScene}
             onChange={(checked) => {
+              practiceLastEmbedSceneValue = checked;
               setEmbedScene(checked);
               actionManager.executeAction(
                 actionChangeExportEmbedScene,

@@ -16,6 +16,8 @@ import "./HelpDialog.scss";
 
 import type { JSX } from "react";
 
+let practiceHelpDialogSearchQuery = "";
+
 const Header = () => (
   <div className="HelpDialog__header">
     <a
@@ -124,6 +126,10 @@ const ShortcutKey = (props: { children: React.ReactNode }) => (
 );
 
 export const HelpDialog = ({ onClose }: { onClose?: () => void }) => {
+  const [searchQuery, setSearchQuery] = React.useState(
+    practiceHelpDialogSearchQuery,
+  );
+
   const handleClose = React.useCallback(() => {
     if (onClose) {
       onClose();
@@ -138,6 +144,16 @@ export const HelpDialog = ({ onClose }: { onClose?: () => void }) => {
         className={"HelpDialog"}
       >
         <Header />
+        <input
+          aria-label={t("search.title")}
+          className="HelpDialog__practice-search"
+          placeholder={t("search.title")}
+          value={searchQuery}
+          onChange={(event) => {
+            practiceHelpDialogSearchQuery = event.target.value;
+            setSearchQuery(event.target.value);
+          }}
+        />
         <Section title={t("helpDialog.shortcuts")}>
           <ShortcutIsland
             className="HelpDialog__island--tools"

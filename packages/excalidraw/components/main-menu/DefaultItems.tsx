@@ -243,6 +243,7 @@ export const ToggleTheme = (
   const { t } = useI18n();
   const appState = useUIAppState();
   const actionManager = useExcalidrawActionManager();
+  const setAppState = useExcalidrawSetAppState();
   const shortcut = getShortcutFromShortcutName("toggleTheme");
 
   if (!actionManager.isActionEnabled(actionToggleTheme)) {
@@ -254,7 +255,10 @@ export const ToggleTheme = (
       <DropdownMenuItemContentRadio
         name="theme"
         value={props.theme}
-        onChange={(value: Theme | "system") => props.onSelect(value)}
+        onChange={(value: Theme | "system") => {
+          props.onSelect(value);
+          setAppState({ openMenu: "canvas" });
+        }}
         choices={[
           {
             value: THEME.LIGHT,
