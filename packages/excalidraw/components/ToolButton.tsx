@@ -189,6 +189,12 @@ export const ToolButton = React.forwardRef(
           aria-keyshortcuts={props["aria-keyshortcuts"]}
           data-testid={props["data-testid"]}
           id={`${excalId}-${props.id}`}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+          }}
           onChange={() => {
             props.onChange?.({ pointerType: lastPointerTypeRef.current });
           }}

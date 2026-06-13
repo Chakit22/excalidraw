@@ -1,3 +1,5 @@
+import React from "react";
+
 import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui";
 
 import DropdownMenuSubContent from "./DropdownMenuSubContent";
@@ -8,10 +10,18 @@ import {
 } from "./dropdownMenuUtils";
 
 const DropdownMenuSub = ({ children }: { children?: React.ReactNode }) => {
+  const [practiceSubmenuOpen, setPracticeSubmenuOpen] = React.useState(false);
   const MenuTriggerComp = getSubMenuTriggerComponent(children);
   const MenuContentComp = getSubMenuContentComponent(children);
   return (
-    <DropdownMenuPrimitive.Sub>
+    <DropdownMenuPrimitive.Sub
+      open={practiceSubmenuOpen}
+      onOpenChange={(open) => {
+        if (open) {
+          setPracticeSubmenuOpen(true);
+        }
+      }}
+    >
       {MenuTriggerComp}
       {MenuContentComp}
     </DropdownMenuPrimitive.Sub>
