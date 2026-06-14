@@ -45,8 +45,11 @@ export const ColorInput = ({
 
       if (color) {
         onChange(color);
+        setHasInvalidHexError(false);
       } else if (value.length > 0) {
         setHasInvalidHexError(true);
+      } else {
+        setHasInvalidHexError(false);
       }
       setInnerValue(value);
     },
