@@ -11,6 +11,7 @@ export type ActionProps = {
   children: React.ReactNode;
   actionLabel: string;
   onClick: () => void;
+  onActionComplete?: () => void;
 };
 
 export const Action = ({
@@ -18,6 +19,7 @@ export const Action = ({
   children,
   actionLabel,
   onClick,
+  onActionComplete,
 }: ActionProps) => {
   return (
     <div className="OverwriteConfirm__Actions__Action">
@@ -31,13 +33,20 @@ export const Action = ({
         label={actionLabel}
         size="large"
         fullWidth
-        onClick={onClick}
+        onClick={() => {
+          onClick();
+          onActionComplete?.();
+        }}
       />
     </div>
   );
 };
 
-export const ExportToImage = () => {
+type ActionCompletionProps = {
+  onActionComplete?: () => void;
+};
+
+export const ExportToImage = ({ onActionComplete }: ActionCompletionProps) => {
   const { t } = useI18n();
   const actionManager = useExcalidrawActionManager();
   const setAppState = useExcalidrawSetAppState();
@@ -50,13 +59,14 @@ export const ExportToImage = () => {
         actionManager.executeAction(actionChangeExportEmbedScene, "ui", true);
         setAppState({ openDialog: { name: "imageExport" } });
       }}
+      onActionComplete={onActionComplete}
     >
       {t("overwriteConfirm.action.exportToImage.description")}
     </Action>
   );
 };
 
-export const SaveToDisk = () => {
+export const SaveToDisk = ({ onActionComplete }: ActionCompletionProps) => {
   const { t } = useI18n();
   const actionManager = useExcalidrawActionManager();
 
@@ -67,6 +77,7 @@ export const SaveToDisk = () => {
       onClick={() => {
         actionManager.executeAction(actionSaveFileToDisk, "ui");
       }}
+      onActionComplete={onActionComplete}
     >
       {t("overwriteConfirm.action.saveToDisk.description")}
     </Action>
@@ -74,7 +85,12 @@ export const SaveToDisk = () => {
 };
 
 const Actions = Object.assign(
-  ({ children }: { children: React.ReactNode }) => {
+  ({
+    children,
+  }: {
+    children: React.ReactNode;
+    onActionComplete?: () => void;
+  }) => {
     return <div className="OverwriteConfirm__Actions">{children}</div>;
   },
   {

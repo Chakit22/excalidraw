@@ -8,12 +8,14 @@ const MenuTrigger = ({
   className = "",
   children,
   onToggle,
+  open,
   title,
   ...rest
 }: {
   className?: string;
   children: React.ReactNode;
   onToggle: () => void;
+  open?: boolean;
   title?: string;
 } & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onSelect">) => {
   const editorInterface = useEditorInterface();
@@ -31,6 +33,8 @@ const MenuTrigger = ({
       type="button"
       data-testid="dropdown-menu-button"
       title={title}
+      aria-haspopup="menu"
+      aria-expanded={open}
       {...rest}
     >
       {children}

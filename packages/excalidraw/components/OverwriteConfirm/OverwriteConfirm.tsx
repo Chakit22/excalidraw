@@ -59,7 +59,7 @@ const OverwriteConfirmDialog = Object.assign(
                   onClick={handleConfirm}
                 />
               </div>
-              <Actions>{children}</Actions>
+              <Actions onActionComplete={handleClose}>{children}</Actions>
             </div>
           </Dialog>
         </OverwriteConfirmDialogTunnel.In>
