@@ -528,9 +528,8 @@ export const HelpDialog = ({ onClose }: { onClose?: () => void }) => {
                   ))}
                 </ShortcutIsland>
               );
-            } else {
-              return null;
             }
+            return null;
           })}
           {!hasResults && (
             <p className="HelpDialog__no-results">{t("search.noMatch")}</p>

@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui";
 
 import DropdownMenuSubContent from "./DropdownMenuSubContent";
@@ -6,7 +7,6 @@ import {
   getSubMenuContentComponent,
   getSubMenuTriggerComponent,
 } from "./dropdownMenuUtils";
-import React, { useState } from "react";
 
 type MenuSubTriggerInjectedProps = {
   onClick?: React.MouseEventHandler<HTMLElement>;
