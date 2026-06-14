@@ -254,7 +254,14 @@ export const ToggleTheme = (
       <DropdownMenuItemContentRadio
         name="theme"
         value={props.theme}
+<<<<<<< Updated upstream
         onChange={(value: Theme | "system") => props.onSelect(value)}
+=======
+        onChange={(value: Theme | "system") => {
+          props.onSelect(value);
+          setAppState({ openMenu: null });
+        }}
+>>>>>>> Stashed changes
         choices={[
           {
             value: THEME.LIGHT,
