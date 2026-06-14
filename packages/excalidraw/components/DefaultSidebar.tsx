@@ -98,7 +98,16 @@ export const DefaultSidebar = Object.assign(
         >
           <Sidebar.Tabs>
             <Sidebar.Header>
-              <Sidebar.TabTriggers>
+              <Sidebar.TabTriggers
+                onTabSelect={(tab) => {
+                  setAppState((state) => ({
+                    ...state,
+                    openSidebar: state.openSidebar
+                      ? { ...state.openSidebar, tab }
+                      : state.openSidebar,
+                  }));
+                }}
+              >
                 <Sidebar.TabTrigger tab={CANVAS_SEARCH_TAB}>
                   {searchIcon}
                 </Sidebar.TabTrigger>

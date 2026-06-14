@@ -96,7 +96,11 @@ const TTDDialogBase = withInternalFallback(
           {"__fallback" in rest && rest.__fallback ? (
             <p className="dialog-mermaid-title">{t("mermaid.title")}</p>
           ) : (
-            <TTDDialogTabTriggers>
+            <TTDDialogTabTriggers
+              onTabSelect={(tab) => {
+                app.setOpenDialog({ name: "ttd", tab });
+              }}
+            >
               <TTDDialogTabTrigger tab="text-to-diagram">
                 <div className="ttd-dialog-tab-trigger__content">
                   {t("labels.textToDiagram")}
