@@ -84,19 +84,31 @@ export const SaveToDisk = ({ onActionComplete }: ActionCompletionProps) => {
   );
 };
 
+type ComponentWithProps = {
+  onActionComplete?: () => void;
+};
+
 const Actions = Object.assign(
   ({
     children,
+    onActionComplete,
   }: {
     children: React.ReactNode;
     onActionComplete?: () => void;
   }) => {
-    return <div className="OverwriteConfirm__Actions">{children}</div>;
+    const components = React.Children.map(children, (child) => {
+      if (!React.isValidElement<ComponentWithProps>(child)) {
+        return child;
+      }
+
+      return React.cloneElement(child, { onActionComplete });
+    });
+
+    return <div className="OverwriteConfirm__Actions">{components}</div>;
   },
   {
     ExportToImage,
     SaveToDisk,
   },
 );
-
 export { Actions };
