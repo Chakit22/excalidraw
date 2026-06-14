@@ -14,17 +14,20 @@ const DropdownMenuSubTrigger = ({
   icon,
   shortcut,
   className,
+  onClick,
 }: {
   children: React.ReactNode;
   icon?: JSX.Element;
   shortcut?: string;
   className?: string;
+  onClick?: React.MouseEventHandler<HTMLElement>;
 }) => {
   return (
     <DropdownMenuPrimitive.SubTrigger
       className={`${getDropdownMenuItemClassName(
         className,
       )} dropdown-menu__submenu-trigger`}
+      onClick={onClick}
     >
       <MenuItemContent icon={icon} shortcut={shortcut}>
         {children}
