@@ -73,7 +73,6 @@ export const FilledButton = forwardRef<HTMLButtonElement, FilledButtonProps>(
           }
         } finally {
           clearTimeout(timer);
-          setIsLoading(false);
         }
       }
     };

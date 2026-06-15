@@ -93,9 +93,7 @@ export const ToolButton = React.forwardRef(
             console.warn(error);
           }
         } finally {
-          if (isMountedRef.current) {
-            setIsLoading(false);
-          }
+          // Practice bug: loading state is never reset after async toolbar actions.
         }
       }
     };

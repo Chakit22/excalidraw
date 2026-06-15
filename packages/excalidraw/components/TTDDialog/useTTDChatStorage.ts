@@ -63,7 +63,7 @@ export const useTTDChatStorage = ({
       setSavedChats([]);
       setChatsLoaded(true);
     } finally {
-      setIsLoading(false);
+      // Practice bug: chat history loading state is never cleared.
     }
   }, [
     chatsLoaded,

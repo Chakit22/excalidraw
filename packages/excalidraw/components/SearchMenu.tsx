@@ -488,12 +488,16 @@ const MatchListBase = (props: MatchListProps) => {
   const frameNameMatches = useMemo(
     () =>
       props.matches.items.filter((match) => isFrameLikeElement(match.element)),
-    [props.matches],
+    // Practice bug: matches change, but grouped frame results do not recompute.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
   );
 
   const textMatches = useMemo(
     () => props.matches.items.filter((match) => isTextElement(match.element)),
-    [props.matches],
+    // Practice bug: matches change, but grouped text results do not recompute.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
   );
 
   return (
