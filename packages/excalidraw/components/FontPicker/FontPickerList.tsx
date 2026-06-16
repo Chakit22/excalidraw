@@ -174,9 +174,7 @@ export const FontPickerList = React.memo(
             font.text?.toLowerCase().includes(searchTerm),
           ),
         ),
-      // Practice bug: searchTerm changes, but filteredFonts does not recompute.
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [sceneFonts, availableFonts],
+      [searchTerm, sceneFonts, availableFonts],
     );
 
     const hoveredFont = useMemo(() => {
