@@ -484,6 +484,11 @@ export const HelpDialog = ({ onClose }: { onClose?: () => void }) => {
     (shortcutSection) => shortcutSection.active,
   );
 
+  const searchResultCount = filteredShortcutSections.reduce(
+    (acc, shortcutSection) => acc + shortcutSection.items.length,
+    0,
+  );
+
   const handleClose = React.useCallback(() => {
     if (onClose) {
       onClose();
@@ -529,6 +534,14 @@ export const HelpDialog = ({ onClose }: { onClose?: () => void }) => {
             </button>
           )}
         </div>
+        {query.trim().length > 0 && (
+          <p className="HelpDialog__searchResult" aria-live="polite">
+            {searchResultCount}{" "}
+            {searchResultCount === 1
+              ? t("search.singleResult")
+              : t("search.multipleResults")}
+          </p>
+        )}
         <Section
           title={t("helpDialog.shortcuts")}
           isFiltering={query.trim().length > 0}
