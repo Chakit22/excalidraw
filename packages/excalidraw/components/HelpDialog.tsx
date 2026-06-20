@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 
 import { isDarwin, isFirefox, isWindows } from "@excalidraw/common";
 
@@ -11,7 +11,7 @@ import { t } from "../i18n";
 import { getShortcutKey } from "../shortcut";
 
 import { Dialog } from "./Dialog";
-import { ExternalLinkIcon, GithubIcon, youtubeIcon } from "./icons";
+import { CloseIcon, ExternalLinkIcon, GithubIcon, youtubeIcon } from "./icons";
 
 import "./HelpDialog.scss";
 
@@ -452,6 +452,7 @@ const ShortcutKey = (props: { children: React.ReactNode }) => (
 
 export const HelpDialog = ({ onClose }: { onClose?: () => void }) => {
   const [query, setQuery] = useState<string>("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Find the filtered shortcuts which match the query
   const filteredShortcutSections = useMemo(() => {
@@ -497,15 +498,37 @@ export const HelpDialog = ({ onClose }: { onClose?: () => void }) => {
         className={"HelpDialog"}
       >
         <Header />
-        <input
-          placeholder="Search"
-          aria-label={t("search.title")}
-          onChange={(event) => {
-            setQuery(event.target.value);
-          }}
-          value={query}
-          className="HelpDialog__searchBar"
-        />
+        <div className="HelpDialog__searchBar">
+          <input
+            ref={searchInputRef}
+            placeholder="Search"
+            aria-label={t("search.title")}
+            onChange={(event) => {
+              setQuery(event.target.value);
+            }}
+            onKeyDown={(event) => {
+              if (event.key === KEYS.ESCAPE && query) {
+                event.stopPropagation();
+                setQuery("");
+              }
+            }}
+            value={query}
+            className="HelpDialog__searchInput"
+          />
+          {query.length > 0 && (
+            <button
+              type="button"
+              className="HelpDialog__clearSearch"
+              aria-label={t("library.search.clearSearch")}
+              onClick={() => {
+                setQuery("");
+                searchInputRef.current?.focus();
+              }}
+            >
+              {CloseIcon}
+            </button>
+          )}
+        </div>
         <Section
           title={t("helpDialog.shortcuts")}
           isFiltering={query.trim().length > 0}

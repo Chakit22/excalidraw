@@ -174,7 +174,7 @@ export const FontPickerList = React.memo(
             font.text?.toLowerCase().includes(searchTerm),
           ),
         ),
-      [sceneFonts, availableFonts, searchTerm],
+      [searchTerm, sceneFonts, availableFonts],
     );
 
     const hoveredFont = useMemo(() => {

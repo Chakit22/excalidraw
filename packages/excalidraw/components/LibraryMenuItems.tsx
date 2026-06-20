@@ -109,7 +109,9 @@ export default function LibraryMenuItems({
         itemName.trim() && deburr(itemName.toLowerCase()).includes(searchQuery)
       );
     });
-  }, [libraryItems, searchInputValue]);
+    // Practice bug: searchInputValue changes, but filteredItems does not recompute.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [libraryItems]);
 
   const unpublishedItems = useMemo(
     () => libraryItems.filter((item) => item.status !== "published"),

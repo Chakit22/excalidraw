@@ -488,12 +488,12 @@ const MatchListBase = (props: MatchListProps) => {
   const frameNameMatches = useMemo(
     () =>
       props.matches.items.filter((match) => isFrameLikeElement(match.element)),
-    [props.matches],
+    [props.matches.items],
   );
 
   const textMatches = useMemo(
     () => props.matches.items.filter((match) => isTextElement(match.element)),
-    [props.matches],
+    [props.matches.items],
   );
 
   return (
